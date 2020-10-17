@@ -2,11 +2,9 @@ import { OrderServiceError } from './../util/errors/internal-errors';
 import { Deal } from './../interfaces/Deal';
 import * as formattedDate from '../util/formattedDate';
 import * as daoOrder from '../repository/dao-order';
+import { OrderInterface } from '../models/Order'
 
 export class OrderService {
-    constructor() {
-
-    }
 
     public async setTotalOrdersValuePerDay(deals: Deal[]): Promise<boolean> {
         const response = this.calcTotalValuePerDay(deals);
@@ -33,7 +31,7 @@ export class OrderService {
         }
     }
 
-    public async getAllOrders() {
+    public async getAllOrders(): Promise<OrderInterface[]> {
         try {
             return await daoOrder.getAll();
 

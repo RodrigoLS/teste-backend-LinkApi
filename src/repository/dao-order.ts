@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import Order from '../models/Order';
 import { DatabaseError } from './../util/errors/internal-errors';
 
@@ -16,7 +15,6 @@ export const update = async (id: string, amount: number) => {
     try {
         return await Order.findOneAndUpdate({ _id: id }, { amount });   
     } catch (error) {
-        console.log(error)
         throw new DatabaseError(error);
     }
 }

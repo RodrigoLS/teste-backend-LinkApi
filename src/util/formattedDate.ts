@@ -13,6 +13,5 @@ export const brazilianInAmerican = (data: string): Date => {
     const aux = data.split('/');
     const strDate = `${aux[2]}/${aux[1]}/${aux[0]}`;
     const date = new Date(strDate);
-    console.log(date);
     return date;
 }

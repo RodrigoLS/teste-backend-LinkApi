@@ -9,10 +9,6 @@ export class PipedriveService {
     private api_base_url = 'https://linkapi14.pipedrive.com/api/v1';
     private api_token = dotenv.API_PIPEDRIVE_TOKEN;
 
-    constructor() {
-
-    }
-
     public async getDeals(): Promise<Deal[]> {
         try {
             const response = await axios

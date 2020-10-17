@@ -9,10 +9,6 @@ export class BlingService {
     private api_base_url = 'https://bling.com.br/Api/v2/pedido/json';
     private api_token = dotenv.API_BLING_TOKEN;
 
-    constructor() {
-
-    }
-
     public async saveOrders(deals: Deal[]): Promise<boolean> {
         try {
             for (let i = 0; i <= deals.length - 1; i++) {
