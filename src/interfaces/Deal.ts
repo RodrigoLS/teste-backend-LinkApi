@@ -12,5 +12,6 @@ export interface Deal {
         itens: {
             item: Product[];
         }
-    }
+        valor: number;
+    } 
 }

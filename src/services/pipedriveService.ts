@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as dotenv from '../config/dotenv-config';
 import { DealsResponse, DealsProductResponse, Deal, Product } from '../interfaces';
 import * as formattedDate from '../util/formattedDate'
+import { PipedriveServiceError } from './../util/errors/internal-errors';
 
 
 export class PipedriveService {
@@ -20,7 +21,7 @@ export class PipedriveService {
             return this.normalizeResponseDeals(response.data.data);
 
         } catch (error) {
-            throw new Error();
+            throw new PipedriveServiceError(error);
         }
     }
 
@@ -32,7 +33,7 @@ export class PipedriveService {
             return response.data.data;
 
         } catch (error) {
-            throw new Error();
+            throw new PipedriveServiceError(error);
         }
     }
 
@@ -41,8 +42,12 @@ export class PipedriveService {
         let listDeals: Deal[] = [];
 
         for (let i = 0; i <= data.length - 1; i++) {
+            let listProducts: Product[] = [];
             const productsResponse = await this.getDealProducts(data[i].id);
-            let listProducts = this.normalizeResponseProducts(productsResponse);
+            
+            if(productsResponse) {
+                listProducts = this.normalizeResponseProducts(productsResponse);
+            }
 
             let deal: Deal = {
                 pedido: {
@@ -51,11 +56,12 @@ export class PipedriveService {
                         id: data[i].person_id.value,
                         nome: data[i].person_id.name,
                         fone: data[i].person_id.phone[0].value,
-                        email: data[i].person_id.email[0].value,
+                        email: data[i].person_id.email[0].value
                     },
                     itens: {
                         item: listProducts
-                    }
+                    },
+                    valor: data[i].weighted_value
                 }
             }
 

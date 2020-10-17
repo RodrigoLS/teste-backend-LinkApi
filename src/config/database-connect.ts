@@ -6,7 +6,8 @@ export const connect = async (): Promise<void> => {
     await mongoose.connect(`${dotenv.MONGO_CONNECTION_STRING}`, {
         useCreateIndex: true,
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     })
 }
   
