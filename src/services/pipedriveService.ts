@@ -39,7 +39,7 @@ export class PipedriveService {
 
     private async normalizeResponseDeals(data: DealsResponse[]): Promise<Deal[]> {
 
-        let listDeals: Deal[] = [];
+        const listDeals: Deal[] = [];
 
         for (let i = 0; i <= data.length - 1; i++) {
             let listProducts: Product[] = [];
@@ -49,7 +49,7 @@ export class PipedriveService {
                 listProducts = this.normalizeResponseProducts(productsResponse);
             }
 
-            let deal: Deal = {
+            const deal: Deal = {
                 pedido: {
                     data: formattedDate.americanInBrazilian(data[i].won_time),
                     cliente: {
@@ -73,10 +73,10 @@ export class PipedriveService {
 
 
     private normalizeResponseProducts(data: DealsProductResponse[]): Product[] {
-        let listProducts: Product[] = [];
+        const listProducts: Product[] = [];
 
         data.forEach(element => {
-            let product = {
+            const product = {
                 codigo: element.id.toString(),
                 descricao: element.name,
                 qtde: element.quantity,

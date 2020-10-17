@@ -9,10 +9,10 @@ export class OrderService {
     }
 
     public async setTotalOrdersValuePerDay(deals: Deal[]): Promise<boolean> {
-        let response = this.calcTotalValuePerDay(deals);
+        const response = this.calcTotalValuePerDay(deals);
 
         try {
-            for (let key in response) {
+            for (const key in response) {
                 const date = formattedDate.brazilianInAmerican(key);
                 const formatted_date = key;
                 const amount =response[key];
@@ -44,7 +44,7 @@ export class OrderService {
 
     private calcTotalValuePerDay(deals: Deal[]) {
         return deals.reduce((obj: any, value: Deal) => {
-            let key = `${value.pedido.data}`;
+            const key = `${value.pedido.data}`;
             if (obj[key] == null) obj[key] = 0;
 
             obj[key] += value.pedido.valor;
