@@ -1,18 +1,21 @@
 import { Request, Response } from 'express';
 import { PipedriveService } from '../services/pipedriveService';
-import * as convertXML from '../util/JSONtoXML';
+import { BlingService } from './../services/blingService';
+import { Deal } from '../interfaces/Deal';
 
 export class DealsController {
     public async getDeals(req: Request, res: Response) {
         const pipedriveService = new PipedriveService();
+        const blingService = new BlingService();
 
-        let response = await pipedriveService.getDeals();
-        let xml = convertXML.objectToXML(response[0]);
-        
+        const deals: Deal[] = await pipedriveService.getDeals();
+        const response = blingService.saveOrders(deals);
 
-        res.send({
-            message: 'Sucesso',
-            xml
-        })
+        if(response) {
+            res.send({
+                message: 'Sucess',
+                status: 200
+            })
+        } 
     }
 }
